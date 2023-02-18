@@ -1,19 +1,23 @@
-<html >
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <html>
     <head> 
         <link th:href="@{/form-stylesheet.css}" rel="stylesheet"> 
     </head>    
     <body>
-        <div class="topnav">
-            <a class="active">Form</a>
-            <a>Inventory</a>
-        </div>
+    <div class="topnav">
+        <a class="active" th:href="@{/}" >Form</a>
+        <a th:href="@{/inventory}">Inventory</a>
+    </div>
         <div class="container">    
             <h2> Global Superstore </h2>
             <form method="post">
-                <select class="select">
+                <select class="select" th:field="*{category}">
                     <option style="color:blue">Choose Category</option>
-                    <option> Placeholder </option>
+                    <option th:each="category: ${categories}"
+                            th:text="${category}"
+                            th:value="${category}">
+                        Placeholder
+                    </option>
                 </select>
                 <input type="text" placeholder="Name">
                 <input class="half" type="text" placeholder="Price">
