@@ -10,8 +10,8 @@
     </div>
         <div class="container">    
             <h2> Global Superstore </h2>
-            <form method="post">
-                <select class="select" th:field="*{category}">
+            <form method="post" th:object="${item}" th:action="@{/submitItem}">
+               <select class="select" th:field="*{category}">
                     <option style="color:blue">Choose Category</option>
                     <option th:each="category: ${categories}"
                             th:text="${category}"
@@ -19,11 +19,12 @@
                         Placeholder
                     </option>
                 </select>
-                <input type="text" placeholder="Name">
-                <input class="half" type="text" placeholder="Price">
-                <input class="half" type="text" placeholder="Discount">
+                <input type="text" th:field="*{name}" placeholder="Name">
+                <input class="half" th:field="*{price}" type="text" placeholder="Price">
+                <input class="half" th:field="*{discount}" type="text" placeholder="Discount">
                 <h4>Order Date</h4>
-                <input type="date" style="color:black">
+                <input type="date" th:field="*{date}" style="color:black">
+                <input type="hidden" th:field="*{id}">
                 <input type="submit" value="Submit Item">
             </form>
         </div>      
