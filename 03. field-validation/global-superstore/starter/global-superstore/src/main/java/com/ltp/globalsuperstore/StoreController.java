@@ -7,10 +7,13 @@ import java.util.concurrent.TimeUnit;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 public class StoreController {
@@ -21,14 +24,20 @@ public class StoreController {
     public String getForm(Model model, @RequestParam(required = false) String id) {
         int index = getIndexFromId(id);
         model.addAttribute("item", index == Constants.NOT_FOUND ? new Item() : items.get(index));
-        model.addAttribute("categories", Constants.CATEGORIES);
         return "form";
     }
 
     @PostMapping("/submitItem")
-    public String handleSubmit(Item item, RedirectAttributes redirectAttributes) {
+    public String handleSubmit(@Valid Item item, BindingResult result, RedirectAttributes redirectAttributes) {
+
+        if (item.getPrice() < item.getDiscount()) {
+            result.rejectValue("price", "", "Price cannot be less than discount");
+        }
+
         int index = getIndexFromId(item.getId());
+
         String status = Constants.SUCCESS_STATUS;
+
         if (index == Constants.NOT_FOUND) {
             items.add(item);
         } else if (within5Days(item.getDate(), items.get(index).getDate())) {
@@ -37,6 +46,7 @@ public class StoreController {
             status = Constants.FAILED_STATUS;
         }
         redirectAttributes.addFlashAttribute("status", status);
+
         return "redirect:/inventory";
     }
 
