@@ -1,4 +1,4 @@
-package com.ltp.globalsuperstore;
+package com.ltp.globalsuperstore.model;
 
 import java.util.Date;
 import java.util.UUID;

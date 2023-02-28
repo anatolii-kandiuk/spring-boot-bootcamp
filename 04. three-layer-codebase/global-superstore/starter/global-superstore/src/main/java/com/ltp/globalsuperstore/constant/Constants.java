@@ -1,4 +1,4 @@
-package com.ltp.globalsuperstore;
+package com.ltp.globalsuperstore.constant;
 
 public class Constants {
     public static final int NOT_FOUND = -10000;
