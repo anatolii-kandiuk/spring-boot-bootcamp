@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ltp.contacts.pojo.Contact;
 import com.ltp.contacts.service.ContactService;
 
+import javax.validation.Valid;
+
 @RestController
 public class ContactController {
     
@@ -35,13 +37,13 @@ public class ContactController {
     }
     
     @PostMapping("/contact")
-    public ResponseEntity<HttpStatus> createContact(@RequestBody Contact contact) {
+    public ResponseEntity<HttpStatus> createContact(@Valid @RequestBody Contact contact) {
         contactService.saveContact(contact);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/contact/{id}")
-    public ResponseEntity<Contact> updateContact(@PathVariable String id, @RequestBody Contact contact) {
+    public ResponseEntity<Contact> updateContact(@PathVariable String id, @Valid @RequestBody Contact contact) {
         contactService.updateContact(id, contact);   
         return new ResponseEntity<Contact>(contactService.getContactById(id), HttpStatus.OK);
     }
