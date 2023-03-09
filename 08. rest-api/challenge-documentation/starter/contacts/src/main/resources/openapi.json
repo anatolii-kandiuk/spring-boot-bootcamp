@@ -1,0 +1,12 @@
+{
+  "openapi":"3.0.1",
+  "info":{
+    "title":"OpenAPI definition",
+    "version":"v0"},
+  "servers":[
+    {
+      "url":"http://localhost:8080",
+      "description":"Generated server url"
+    }
+  ],
+  "paths":{"/contact":{"post":{"tags":["contact-controller"],"operationId":"createContact","requestBody":{"content":{"application/json":{"schema":{"$ref":"#/components/schemas/Contact"}}},"required":true},"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/Contact"}}}}}}},"/contact/{id}":{"get":{"tags":["contact-controller"],"operationId":"getContact","parameters":[{"name":"id","in":"path","required":true,"schema":{"type":"string"}}],"responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"$ref":"#/components/schemas/Contact"}}}}}}},"/contact/all":{"get":{"tags":["contact-controller"],"operationId":"getContacts","responses":{"200":{"description":"OK","content":{"*/*":{"schema":{"type":"array","items":{"$ref":"#/components/schemas/Contact"}}}}}}}}},"components":{"schemas":{"Contact":{"required":["name","phoneNumber"],"type":"object","properties":{"id":{"type":"string"},"name":{"type":"string"},"phoneNumber":{"type":"string"}}}}}}
